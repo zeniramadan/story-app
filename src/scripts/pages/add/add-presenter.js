@@ -122,6 +122,7 @@ export default class AddPresenter {
         }
         this.view.showLoading(false);
         if (!res.error) {
+          alert('Cerita berhasil ditambahkan!');
           window.location.hash = '#/';
         } else {
           console.error('API Error:', res);

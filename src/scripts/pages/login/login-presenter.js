@@ -19,6 +19,7 @@ export default class LoginPresenter {
       const res = await login({ email, password });
       if (!res.error && res.loginResult && res.loginResult.token) {
         localStorage.setItem('token', res.loginResult.token);
+        alert('Login berhasil!');
         window.location.hash = '#/';
       } else {
         this.view.renderError(res.message || 'Login gagal');
