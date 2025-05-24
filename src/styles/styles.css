@@ -287,11 +287,11 @@ label {
 }
 
 ::view-transition-old(main-content) {
-  animation: fade-out 300ms cubic-bezier(.4,0,.2,1);
+  animation: fade-out 60ms cubic-bezier(.4,0,.2,1);
   z-index: 1;
 }
 ::view-transition-new(main-content) {
-  animation: fade-in 300ms cubic-bezier(.4,0,.2,1);
+  animation: fade-in 60ms cubic-bezier(.4,0,.2,1);
   z-index: 2;
 }
 
@@ -580,4 +580,23 @@ h1 {
     max-width: 98vw;
     padding: 0 4px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(main-content),
+  ::view-transition-new(main-content) {
+    animation-duration: 50ms !important;
+    animation-iteration-count: 1 !important;
+    animation-timing-function: linear !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 200px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #5BC0EB22;
 }

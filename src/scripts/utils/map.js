@@ -12,9 +12,24 @@ export function initMap({
   onMarkerUpdate = null,
 }) {
   const map = L.map(id).setView([lat, lon], zoom);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+  // Tile layers
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
-  }).addTo(map);
+  });
+  const maptiler = L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=TMuH5nPwlbb1KKGbZqIj', {
+    attribution: '© MapTiler',
+  });
+
+  // Default add OSM
+  osm.addTo(map);
+
+  // Layer control
+  const baseLayers = {
+    'OpenStreetMap': osm,
+    'MapTiler Streets': maptiler,
+  };
+  L.control.layers(baseLayers).addTo(map);
 
   let mapMarker = null;
   if (marker) {

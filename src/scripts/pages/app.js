@@ -45,6 +45,7 @@ class App {
       window.location.hash = '#/login';
       return;
     }
+    this.#content.innerHTML = '<div class="loading" style="margin:64px 0;"><span class="loading-spinner"></span> Memuat...</div>';
     if (document.startViewTransition) {
       document.startViewTransition(async () => {
         this.#content.innerHTML = await page.render();
