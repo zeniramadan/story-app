@@ -39,6 +39,9 @@ body {
 }
 
 header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   background: linear-gradient(90deg, #6C63FF 0%, #5BC0EB 100%);
   box-shadow: 0 2px 8px #0001;
 }
@@ -318,6 +321,31 @@ h1 {
   .main-content {
     padding: 24px 8px 0 8px;
   }
+  .about-card {
+    padding: 24px 8px 18px 8px;
+    max-width: 98vw;
+  }
+  .about-section {
+    padding: 24px 0;
+  }
+  .auth-card {
+    padding: 24px 8px 18px 8px;
+    max-width: 98vw;
+  }
+  .auth-section {
+    padding: 24px 0;
+  }
+  .add-card {
+    padding: 24px 8px 18px 8px;
+    max-width: 98vw;
+  }
+  .add-section {
+    padding: 24px 0;
+  }
+  .story-detail {
+    max-width: 98vw;
+    padding: 0 4px;
+  }
 }
 
 .about-section {
@@ -389,16 +417,6 @@ h1 {
 .about-social a:hover {
   color: #FFD803;
   transform: scale(1.15) rotate(-8deg);
-}
-
-@media (max-width: 600px) {
-  .about-card {
-    padding: 24px 8px 18px 8px;
-    max-width: 98vw;
-  }
-  .about-section {
-    padding: 24px 0;
-  }
 }
 
 /* Tombol logout khusus */
@@ -480,16 +498,6 @@ h1 {
   color: #FFD803;
 }
 
-@media (max-width: 600px) {
-  .auth-card {
-    padding: 24px 8px 18px 8px;
-    max-width: 98vw;
-  }
-  .auth-section {
-    padding: 24px 0;
-  }
-}
-
 /* Add Page Card */
 .add-section {
   min-height: 80vh;
@@ -539,15 +547,6 @@ h1 {
 .add-card .about-social {
   margin-top: 18px;
 }
-@media (max-width: 600px) {
-  .add-card {
-    padding: 24px 8px 18px 8px;
-    max-width: 98vw;
-  }
-  .add-section {
-    padding: 24px 0;
-  }
-}
 
 .story-detail {
   margin: 0 auto 32px auto;
@@ -575,12 +574,6 @@ h1 {
   margin-bottom: 10px;
   font-size: 1.05rem;
 }
-@media (max-width: 600px) {
-  .story-detail {
-    max-width: 98vw;
-    padding: 0 4px;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-old(main-content),
@@ -599,4 +592,5 @@ h1 {
   min-height: 200px;
   border-radius: 10px;
   box-shadow: 0 2px 8px #5BC0EB22;
+  z-index: 1;
 }
