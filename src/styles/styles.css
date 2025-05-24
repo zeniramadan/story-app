@@ -129,15 +129,12 @@ header {
   color: #FFD803;
 }
 
-/* MAIN */
 .main-content {
   padding: 32px 24px 0 24px;
   min-height: 70vh;
   margin-left: 20px;
   margin-right: 20px;
 }
-
-/* Write your styles more here */
 
 .story-grid {
   display: grid;
@@ -428,7 +425,6 @@ h1 {
   transform: scale(1.15) rotate(-8deg);
 }
 
-/* Tombol logout khusus */
 #logout-btn {
   background: #ff4d4f;
   color: #fff;
@@ -446,7 +442,6 @@ h1 {
   color: #fff;
 }
 
-/* Home page center alignment */
 .home-title,
 #add-story-btn,
 #show-more-btn {
@@ -456,12 +451,10 @@ h1 {
   text-align: center;
 }
 
-/* Untuk h1 di home-page */
 .home-title {
   margin-bottom: 24px;
 }
 
-/* Login & Register Card */
 .auth-section {
   min-height: 80vh;
   display: flex;
@@ -507,7 +500,6 @@ h1 {
   color: #FFD803;
 }
 
-/* Add Page Card */
 .add-section {
   min-height: 80vh;
   display: flex;

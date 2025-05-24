@@ -23,7 +23,6 @@ export default class AddPresenter {
   }
 
   async afterRender() {
-    // Cek geolokasi
     let lat = -6.2;
     let lon = 106.8;
     let popupText = 'Lokasi Anda';
@@ -38,14 +37,12 @@ export default class AddPresenter {
         document.getElementById('lon').value = lon;
         popupText = await getLocationName(lat, lon);
       } catch (e) {
-        // Jika gagal, tetap pakai default
         popupText = await getLocationName(lat, lon);
       }
     } else {
       popupText = await getLocationName(lat, lon);
     }
 
-    // Inisialisasi peta dengan marker di lokasi user
     this.mapInstance = initMap({
       id: 'map',
       lat,
@@ -66,7 +63,6 @@ export default class AddPresenter {
       },
     });
 
-    // Kamera
     const video = document.getElementById('video');
     this.camera = new Camera(video);
     this.photoDataUrl = null;

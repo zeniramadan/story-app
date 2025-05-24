@@ -13,7 +13,6 @@ export function initMap({
 }) {
   const map = L.map(id).setView([lat, lon], zoom);
 
-  // Tile layers
   const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
   });
@@ -21,10 +20,8 @@ export function initMap({
     attribution: '© MapTiler',
   });
 
-  // Default add OSM
   osm.addTo(map);
 
-  // Layer control
   const baseLayers = {
     'OpenStreetMap': osm,
     'MapTiler Streets': maptiler,

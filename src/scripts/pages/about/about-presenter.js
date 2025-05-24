@@ -6,6 +6,6 @@ export default class AboutPresenter {
   }
 
   async afterRender() {
-    // Placeholder, bisa diisi logic jika perlu
+    
   }
 } 
