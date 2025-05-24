@@ -19,7 +19,7 @@ export default class AddPage {
             <label for="lon"><i class='fa-solid fa-location-dot' style='margin-right:6px;'></i>Longitude</label>
             <input id="lon" name="lon" required readonly aria-required="true" />
             <div id="map" style="height:300px;background:#eee;">[Peta akan tampil di sini]</div>
-            <button type="submit"><i class='fa-solid fa-paper-plane' style='margin-right:6px;'></i>Kirim</button>
+            <button type="submit"><i class='fa-solid fa-save' style='margin-right:6px;'></i>Simpan</button>
             <div id="add-loading" class="loading" style="display:none;text-align:center;margin:16px 0;">
               <span class="loading-spinner"></span> Menyimpan data...
             </div>
