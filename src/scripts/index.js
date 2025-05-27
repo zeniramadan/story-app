@@ -35,4 +35,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       window.location.hash = '#/login';
     };
   }
+
+  // Aksesibilitas: Skip to Content
+  const mainContent = document.querySelector("#main-content");
+  const skipLink = document.querySelector(".skip-link");
+  if (skipLink && mainContent) {
+    skipLink.addEventListener("click", function (event) {
+      event.preventDefault();
+      skipLink.blur();
+      mainContent.setAttribute('tabindex', '-1');
+      mainContent.focus();
+      mainContent.scrollIntoView();
+    });
+  }
 });
