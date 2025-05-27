@@ -67,4 +67,24 @@ export default class AddPage {
     const loading = document.getElementById('add-loading');
     if (loading) loading.style.display = isLoading ? '' : 'none';
   }
+
+  setLatLon(lat, lon) {
+    document.getElementById('lat').value = lat;
+    document.getElementById('lon').value = lon;
+  }
+
+  showAlert(message) {
+    alert(message);
+  }
+
+  redirectToHome() {
+    window.location.hash = '#/';
+  }
+
+  setMapPopup(name) {
+    // Implementasi update popup marker pada peta
+    if (window.currentAddMarker) {
+      window.currentAddMarker.bindPopup(name).openPopup();
+    }
+  }
 } 

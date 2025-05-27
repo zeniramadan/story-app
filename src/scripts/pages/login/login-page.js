@@ -25,4 +25,12 @@ export default class LoginPage {
   renderError(msg) {
     document.getElementById('login-error').textContent = msg;
   }
+
+  showAlert(message) {
+    alert(message);
+  }
+
+  redirectToHome() {
+    window.location.hash = '#/';
+  }
 } 

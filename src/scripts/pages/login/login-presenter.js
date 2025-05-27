@@ -1,9 +1,10 @@
-import { login } from '../../data/api';
+import LoginModel from './login-model';
 import LoginPage from './login-page';
 
 export default class LoginPresenter {
-  constructor(view) {
+  constructor(view, model) {
     this.view = view;
+    this.model = model;
   }
 
   async afterRender() {
@@ -16,11 +17,11 @@ export default class LoginPresenter {
         this.view.renderError('Email dan password wajib diisi!');
         return;
       }
-      const res = await login({ email, password });
+      const res = await this.model.loginUser({ email, password });
       if (!res.error && res.loginResult && res.loginResult.token) {
-        localStorage.setItem('token', res.loginResult.token);
-        alert('Login berhasil!');
-        window.location.hash = '#/';
+        this.model.saveToken(res.loginResult.token);
+        this.view.showAlert('Login berhasil!');
+        this.view.redirectToHome();
       } else {
         this.view.renderError(res.message || 'Login gagal');
       }

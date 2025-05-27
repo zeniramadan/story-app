@@ -1,21 +1,15 @@
-import { getStoryDetail } from '../../data/api';
+import DetailModel from './detail-model';
 import { parseActivePathname } from '../../routes/url-parser';
 
 export default class DetailPresenter {
-  constructor(view) {
+  constructor(view, model) {
     this.view = view;
+    this.model = model;
   }
 
   async afterRender() {
-    const token = localStorage.getItem('token');
     const { id } = parseActivePathname();
-    let story = null;
-    if (token && id) {
-      const res = await getStoryDetail(id, token);
-      if (!res.error) {
-        story = res.story;
-      }
-    }
+    const story = await this.model.getDetail(id);
     this.view.renderDetail(story);
   }
 } 

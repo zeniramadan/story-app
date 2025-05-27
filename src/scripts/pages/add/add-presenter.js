@@ -1,4 +1,4 @@
-import { addStory, addStoryGuest } from '../../data/api';
+import AddModel from './add-model';
 import AddPage from './add-page';
 import { initMap } from '../../utils/map';
 import { Camera } from '../../utils/camera';
@@ -14,8 +14,9 @@ async function getLocationName(lat, lon) {
 }
 
 export default class AddPresenter {
-  constructor(view) {
+  constructor(view, model) {
     this.view = view;
+    this.model = model;
     this.camera = null;
     this.photoDataUrl = null;
     this.mapInstance = null;
@@ -33,8 +34,7 @@ export default class AddPresenter {
         });
         lat = pos.coords.latitude;
         lon = pos.coords.longitude;
-        document.getElementById('lat').value = lat;
-        document.getElementById('lon').value = lon;
+        this.view.setLatLon(lat, lon);
         popupText = await getLocationName(lat, lon);
       } catch (e) {
         popupText = await getLocationName(lat, lon);
@@ -49,17 +49,15 @@ export default class AddPresenter {
       lon,
       zoom: 13,
       onClick: async (latlng) => {
-        document.getElementById('lat').value = latlng.lat;
-        document.getElementById('lon').value = latlng.lng;
+        this.view.setLatLon(latlng.lat, latlng.lng);
         const name = await getLocationName(latlng.lat, latlng.lng);
-        if (this.currentMarker) {
-          this.currentMarker.bindPopup(name).openPopup();
-        }
+        this.view.setMapPopup(name);
       },
       marker: true,
       popupText,
       onMarkerUpdate: (marker) => {
         this.currentMarker = marker;
+        window.currentAddMarker = marker;
       },
     });
 
@@ -109,23 +107,18 @@ export default class AddPresenter {
       if (lon) formData.append('lon', lon);
       this.view.showLoading(true);
       try {
-        let res;
-        const token = localStorage.getItem('token');
-        if (token) {
-          res = await addStory(formData, token);
-        } else {
-          res = await addStoryGuest(formData);
-        }
+        const res = await this.model.submitStory(formData);
+        console.log('RESPONSE DARI API:', res);
         this.view.showLoading(false);
         if (!res.error) {
-          alert('Cerita berhasil ditambahkan!');
-          window.location.hash = '#/';
+          this.view.showAlert('Cerita berhasil ditambahkan!');
+          this.view.redirectToHome();
         } else {
-          console.error('API Error:', res);
           this.view.renderError(res.message || 'Gagal menambah cerita');
         }
       } catch (err) {
         this.view.showLoading(false);
+        console.error('ERROR SAAT SUBMIT:', err);
         this.view.renderError('Terjadi kesalahan server');
       }
     });

@@ -1,77 +1,35 @@
-import { getStoriesWithAuth } from '../../data/api';
+import HomeModel from './home-model';
 import HomePage from './home-page';
-import { initMap } from '../../utils/map';
 
 export default class HomePresenter {
-  constructor(view) {
+  constructor(view, model) {
     this.view = view;
-    this.mapInstance = null;
-    this.markers = [];
+    this.model = model;
   }
 
   async afterRender() {
-    const token = localStorage.getItem('token');
+    const token = this.model.getToken();
     if (!token) {
       this.view.renderStories([]);
-      alert('Silakan login untuk melihat daftar cerita!');
-      window.location.hash = '#/login';
+      this.view.showAlert('Silakan login untuk melihat daftar cerita!');
+      this.view.redirectToLogin();
       return;
     }
     this.view.showLoading(true);
-    const data = await getStoriesWithAuth(token, { size: 1000 });
+    const data = await this.model.getStories(token, { size: 1000 });
     this.view.renderStories(data.listStory || []);
-    this._renderMap(data.listStory || []);
+    setTimeout(() => {
+      this.view.renderMap(data.listStory || []);
+    }, 0);
     this.view.bindAddStory(() => {
-      window.location.hash = '#/add';
+      this.view.redirectToAdd();
     });
     this.view.bindShowMore(() => {
       this.view.showMoreLoading(true);
       setTimeout(() => {
         this.view.renderStories(this.view.list, true);
-        this._renderMap(this.view.list);
-      }, 500); // simulasi loading
+        this.view.renderMap(this.view.list);
+      }, 500);
     });
-    // Implementasi peta akan ditambahkan di sini
-  }
-
-  _renderMap(stories) {
-    // Tampilkan loading spinner peta
-    const mapLoading = document.getElementById('map-loading');
-    if (mapLoading) mapLoading.style.display = 'block';
-    // Hapus peta lama jika ada
-    if (this.mapInstance && this.mapInstance.map) {
-      this.mapInstance.map.remove();
-    }
-    // Default ke Jakarta jika tidak ada story
-    let lat = -6.2, lon = 106.8, zoom = 10;
-    if (stories.length > 0) {
-      lat = stories[0].lat || lat;
-      lon = stories[0].lon || lon;
-      zoom = 15;
-    }
-    this.mapInstance = initMap({
-      id: 'home-map',
-      lat,
-      lon,
-      zoom,
-      marker: false,
-    });
-    // Tambahkan marker untuk setiap story
-    this.markers = [];
-    const group = [];
-    stories.forEach(story => {
-      if (story.lat && story.lon) {
-        const marker = window.L.marker([story.lat, story.lon]).addTo(this.mapInstance.map);
-        marker.bindPopup(`<b>${story.name}</b><br>${story.description || ''}`);
-        this.markers.push(marker);
-        group.push([story.lat, story.lon]);
-      }
-    });
-    // Auto-fit ke semua marker
-    if (group.length > 0) {
-      this.mapInstance.map.fitBounds(group, { padding: [40, 40] });
-    }
-    // Sembunyikan loading spinner peta
-    if (mapLoading) mapLoading.style.display = 'none';
   }
 } 

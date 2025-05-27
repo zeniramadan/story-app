@@ -27,4 +27,12 @@ export default class RegisterPage {
   renderError(msg) {
     document.getElementById('register-error').textContent = msg;
   }
+
+  showAlert(message) {
+    alert(message);
+  }
+
+  redirectToLogin() {
+    window.location.hash = '#/login';
+  }
 } 

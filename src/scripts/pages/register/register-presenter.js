@@ -1,9 +1,10 @@
-import { register } from '../../data/api';
+import RegisterModel from './register-model';
 import RegisterPage from './register-page';
 
 export default class RegisterPresenter {
-  constructor(view) {
+  constructor(view, model) {
     this.view = view;
+    this.model = model;
   }
 
   async afterRender() {
@@ -17,10 +18,10 @@ export default class RegisterPresenter {
         this.view.renderError('Semua field wajib diisi!');
         return;
       }
-      const res = await register({ name, email, password });
+      const res = await this.model.registerUser({ name, email, password });
       if (!res.error) {
-        alert('Registrasi berhasil, silakan login!');
-        window.location.hash = '#/login';
+        this.view.showAlert('Registrasi berhasil, silakan login!');
+        this.view.redirectToLogin();
       } else {
         this.view.renderError(res.message || 'Registrasi gagal');
       }

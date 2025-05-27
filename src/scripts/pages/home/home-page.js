@@ -1,4 +1,7 @@
+import L from 'leaflet';
+window.L = L;
 import 'leaflet/dist/leaflet.css';
+import { initMap } from '../../utils/map';
 
 export default class HomePage {
   constructor() {
@@ -71,7 +74,7 @@ export default class HomePage {
         window.location.hash = `#/detail/${id}`;
       };
     });
-    // Tampilkan tombol more jika masih ada sisa
+
     const showMoreBtn = document.getElementById('show-more-btn');
     if (showMoreBtn) {
       showMoreBtn.style.display = this.renderedCount < this.list.length ? '' : 'none';
@@ -85,5 +88,52 @@ export default class HomePage {
   bindShowMore(handler) {
     const btn = document.getElementById('show-more-btn');
     if (btn) btn.onclick = handler;
+  }
+
+  renderMap(stories) {
+    const mapLoading = document.getElementById('map-loading');
+    if (mapLoading) mapLoading.style.display = 'block';
+    if (this.mapInstance && this.mapInstance.map) {
+      this.mapInstance.map.remove();
+    }
+    let lat = -6.2, lon = 106.8, zoom = 10;
+    if (stories.length > 0) {
+      lat = stories[0].lat || lat;
+      lon = stories[0].lon || lon;
+      zoom = 15;
+    }
+    this.mapInstance = initMap({
+      id: 'home-map',
+      lat,
+      lon,
+      zoom,
+      marker: false,
+    });
+    this.markers = [];
+    const group = [];
+    stories.forEach(story => {
+      if (story.lat && story.lon) {
+        const marker = L.marker([story.lat, story.lon]).addTo(this.mapInstance.map);
+        marker.bindPopup(`<b>${story.name}</b><br>${story.description || ''}`);
+        this.markers.push(marker);
+        group.push([story.lat, story.lon]);
+      }
+    });
+    if (group.length > 0) {
+      this.mapInstance.map.fitBounds(group, { padding: [40, 40] });
+    }
+    if (mapLoading) mapLoading.style.display = 'none';
+  }
+
+  redirectToAdd() {
+    window.location.hash = '#/add';
+  }
+
+  redirectToLogin() {
+    window.location.hash = '#/login';
+  }
+
+  showAlert(message) {
+    alert(message);
   }
 }
