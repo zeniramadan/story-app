@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
   }
 
-  // Aksesibilitas: Skip to Content
   const mainContent = document.querySelector("#main-content");
   const skipLink = document.querySelector(".skip-link");
   if (skipLink && mainContent) {

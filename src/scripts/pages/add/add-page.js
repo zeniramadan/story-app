@@ -1,3 +1,6 @@
+import { initMap } from '../../utils/map';
+import { Camera } from '../../utils/camera';
+
 export default class AddPage {
   async render() {
     return `
@@ -82,9 +85,50 @@ export default class AddPage {
   }
 
   setMapPopup(name) {
-    // Implementasi update popup marker pada peta
     if (window.currentAddMarker) {
       window.currentAddMarker.bindPopup(name).openPopup();
     }
+  }
+
+  initMapView({ lat, lon, popupText, getLocationName, setLatLon, setMapPopup, setCurrentMarker }) {
+    this.mapInstance = initMap({
+      id: 'map',
+      lat,
+      lon,
+      zoom: 13,
+      onClick: async (latlng) => {
+        setLatLon(latlng.lat, latlng.lng);
+        const name = await getLocationName(latlng.lat, latlng.lng);
+        setMapPopup(name);
+      },
+      marker: true,
+      popupText,
+      onMarkerUpdate: (marker) => {
+        setCurrentMarker(marker);
+      },
+    });
+  }
+
+  initCameraView({ onPhotoCaptured, showCameraUI, showPhotoPreview }) {
+    const video = document.getElementById('video');
+    this.camera = new Camera(video);
+    this.photoDataUrl = null;
+    this.bindCameraEvents({
+      onOpen: async () => {
+        await this.camera.startCamera();
+        showCameraUI(true);
+      },
+      onCapture: () => {
+        this.photoDataUrl = this.camera.capturePhoto();
+        showPhotoPreview(this.photoDataUrl);
+        this.camera.stopCamera();
+        showCameraUI(false);
+        if (onPhotoCaptured) onPhotoCaptured(this.photoDataUrl);
+      },
+      onClose: () => {
+        this.camera.stopCamera();
+        showCameraUI(false);
+      }
+    });
   }
 } 

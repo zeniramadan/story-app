@@ -1,7 +1,5 @@
 import AddModel from './add-model';
 import AddPage from './add-page';
-import { initMap } from '../../utils/map';
-import { Camera } from '../../utils/camera';
 
 async function getLocationName(lat, lon) {
   try {
@@ -17,68 +15,37 @@ export default class AddPresenter {
   constructor(view, model) {
     this.view = view;
     this.model = model;
-    this.camera = null;
     this.photoDataUrl = null;
-    this.mapInstance = null;
-    this.currentMarker = null;
   }
 
   async afterRender() {
     let lat = -6.2;
     let lon = 106.8;
     let popupText = 'Lokasi Anda';
-    if (navigator.geolocation) {
-      try {
-        const pos = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 5000 });
-        });
-        lat = pos.coords.latitude;
-        lon = pos.coords.longitude;
-        this.view.setLatLon(lat, lon);
-        popupText = await getLocationName(lat, lon);
-      } catch (e) {
-        popupText = await getLocationName(lat, lon);
-      }
+
+    const location = await this.model.getCurrentLocation();
+    if (location) {
+      lat = location.lat;
+      lon = location.lon;
+      this.view.setLatLon(lat, lon);
+      popupText = await getLocationName(lat, lon);
     } else {
       popupText = await getLocationName(lat, lon);
     }
 
-    this.mapInstance = initMap({
-      id: 'map',
+    this.view.initMapView({
       lat,
       lon,
-      zoom: 13,
-      onClick: async (latlng) => {
-        this.view.setLatLon(latlng.lat, latlng.lng);
-        const name = await getLocationName(latlng.lat, latlng.lng);
-        this.view.setMapPopup(name);
-      },
-      marker: true,
       popupText,
-      onMarkerUpdate: (marker) => {
-        this.currentMarker = marker;
-        window.currentAddMarker = marker;
-      },
+      getLocationName,
+      setLatLon: (lat, lon) => this.view.setLatLon(lat, lon),
+      setMapPopup: (name) => this.view.setMapPopup(name),
+      setCurrentMarker: (marker) => { this.currentMarker = marker; window.currentAddMarker = marker; }
     });
-
-    const video = document.getElementById('video');
-    this.camera = new Camera(video);
-    this.photoDataUrl = null;
-    this.view.bindCameraEvents({
-      onOpen: async () => {
-        await this.camera.startCamera();
-        this.view.showCameraUI(true);
-      },
-      onCapture: () => {
-        this.photoDataUrl = this.camera.capturePhoto();
-        this.view.showPhotoPreview(this.photoDataUrl);
-        this.camera.stopCamera();
-        this.view.showCameraUI(false);
-      },
-      onClose: () => {
-        this.camera.stopCamera();
-        this.view.showCameraUI(false);
-      }
+    this.view.initCameraView({
+      onPhotoCaptured: (photoDataUrl) => { this.photoDataUrl = photoDataUrl; },
+      showCameraUI: (show) => this.view.showCameraUI(show),
+      showPhotoPreview: (dataUrl) => this.view.showPhotoPreview(dataUrl)
     });
 
     this.view.bindSubmit(async (e) => {
@@ -125,8 +92,8 @@ export default class AddPresenter {
   }
 
   destroy() {
-    if (this.camera) {
-      this.camera.stopCamera();
+    if (this.view.camera) {
+      this.view.camera.stopCamera();
     }
   }
 
