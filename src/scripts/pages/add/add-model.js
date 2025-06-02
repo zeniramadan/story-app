@@ -25,6 +25,16 @@ class AddModel {
       return null;
     }
   }
+
+  async getLocationName(lat, lon) {
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+      const data = await res.json();
+      return data.display_name || 'Lokasi tidak diketahui';
+    } catch {
+      return 'Lokasi tidak diketahui';
+    }
+  }
 }
 
 export default AddModel; 

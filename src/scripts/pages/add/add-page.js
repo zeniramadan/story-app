@@ -90,6 +90,11 @@ export default class AddPage {
     }
   }
 
+  setCurrentMarker(marker) {
+    this.currentMarker = marker;
+    window.currentAddMarker = marker;
+  }
+
   initMapView({ lat, lon, popupText, getLocationName, setLatLon, setMapPopup, setCurrentMarker }) {
     this.mapInstance = initMap({
       id: 'map',
@@ -104,7 +109,7 @@ export default class AddPage {
       marker: true,
       popupText,
       onMarkerUpdate: (marker) => {
-        setCurrentMarker(marker);
+        (setCurrentMarker || this.setCurrentMarker).call(this, marker);
       },
     });
   }

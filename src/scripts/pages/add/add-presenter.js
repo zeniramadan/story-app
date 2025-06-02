@@ -1,16 +1,6 @@
 import AddModel from './add-model';
 import AddPage from './add-page';
 
-async function getLocationName(lat, lon) {
-  try {
-    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
-    const data = await res.json();
-    return data.display_name || 'Lokasi tidak diketahui';
-  } catch {
-    return 'Lokasi tidak diketahui';
-  }
-}
-
 export default class AddPresenter {
   constructor(view, model) {
     this.view = view;
@@ -28,19 +18,19 @@ export default class AddPresenter {
       lat = location.lat;
       lon = location.lon;
       this.view.setLatLon(lat, lon);
-      popupText = await getLocationName(lat, lon);
+      popupText = await this.model.getLocationName(lat, lon);
     } else {
-      popupText = await getLocationName(lat, lon);
+      popupText = await this.model.getLocationName(lat, lon);
     }
 
     this.view.initMapView({
       lat,
       lon,
       popupText,
-      getLocationName,
+      getLocationName: this.model.getLocationName.bind(this.model),
       setLatLon: (lat, lon) => this.view.setLatLon(lat, lon),
       setMapPopup: (name) => this.view.setMapPopup(name),
-      setCurrentMarker: (marker) => { this.currentMarker = marker; window.currentAddMarker = marker; }
+      setCurrentMarker: (marker) => { this.currentMarker = marker; }
     });
     this.view.initCameraView({
       onPhotoCaptured: (photoDataUrl) => { this.photoDataUrl = photoDataUrl; },
