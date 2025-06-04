@@ -38,14 +38,15 @@ export function initMap({
   }
 
   if (onClick) {
-    map.on('click', function (e) {
+    map.on('click', async function (e) {
       if (mapMarker) map.removeLayer(mapMarker);
       mapMarker = L.marker(e.latlng).addTo(map);
-      if (popupText) {
-        mapMarker.bindPopup(popupText).openPopup();
-      }
       if (onMarkerUpdate) onMarkerUpdate(mapMarker);
-      onClick(e.latlng);
+      // Tunggu nama lokasi dari handler
+      const name = await onClick(e.latlng);
+      if (name) {
+        mapMarker.bindPopup(name).openPopup();
+      }
     });
   }
 

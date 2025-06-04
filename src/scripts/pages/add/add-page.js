@@ -104,7 +104,7 @@ export default class AddPage {
       onClick: async (latlng) => {
         setLatLon(latlng.lat, latlng.lng);
         const name = await getLocationName(latlng.lat, latlng.lng);
-        setMapPopup(name);
+        return name;
       },
       marker: true,
       popupText,
