@@ -595,3 +595,52 @@ h1 {
   box-shadow: 0 2px 8px #5BC0EB22;
   z-index: 1;
 }
+
+/* === Notifikasi Button === */
+#subscribe-notif-btn {
+  background: linear-gradient(90deg, #6C63FF 0%, #5BC0EB 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px 10px 16px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px #6C63FF33;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+#subscribe-notif-btn:hover {
+  background: linear-gradient(90deg, #5BC0EB 0%, #6C63FF 100%);
+  color: #FFD803;
+  box-shadow: 0 4px 16px #5BC0EB33;
+}
+#subscribe-notif-btn i {
+  color: #FFD803;
+  font-size: 1.2em;
+}
+
+#unsubscribe-notif-btn {
+  background: #EDEDED;
+  color: #6C63FF;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px 10px 16px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px #6C63FF11;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+#unsubscribe-notif-btn:hover {
+  background: #FFD803;
+  color: #232946;
+  box-shadow: 0 4px 16px #FFD80333;
+}
+#unsubscribe-notif-btn i {
+  color: #6C63FF;
+  font-size: 1.2em;
+}
