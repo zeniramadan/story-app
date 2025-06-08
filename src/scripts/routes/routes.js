@@ -16,6 +16,7 @@ import DetailPage from '../pages/detail/detail-page';
 import DetailPresenter from '../pages/detail/detail-presenter';
 import DetailModel from '../pages/detail/detail-model';
 import SavedataPage from '../pages/savedata/savedata.page';
+import NotFoundPage from '../pages/notfound/notfound.page';
 
 const homePage = new HomePage();
 const homeModel = new HomeModel();
@@ -63,6 +64,10 @@ const routes = {
   '/savedata': {
     render: () => SavedataPage.render(),
     afterRender: () => SavedataPage.afterRender(),
+  },
+  '*': {
+    render: () => NotFoundPage.render(),
+    afterRender: () => NotFoundPage.afterRender(),
   },
 };
 

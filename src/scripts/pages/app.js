@@ -36,7 +36,7 @@ class App {
 
   async renderPage() {
     const url = getActiveRoute();
-    const page = routes[url];
+    const page = routes[url] || routes['*'];
     if (this.lastUrl === '/add' && url !== '/add' && addPresenter && typeof addPresenter.destroy === 'function') {
       addPresenter.destroy();
     }
