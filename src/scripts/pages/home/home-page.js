@@ -15,7 +15,9 @@ export default class HomePage {
       <main id=\"main-content\" tabindex=\"-1\">
         <div id=\"home-map\" style=\"height:350px;margin-bottom:24px;margin-top:0;padding-top:0;border-bottom-left-radius:12px;border-bottom-right-radius:12px;overflow:hidden;background:#eee;\"><span id=\"map-loading\" class=\"loading-spinner\" style=\"display:block;margin:120px auto;\"></span></div>
         <h1 class=\"home-title\"><i class=\"fa-solid fa-book-open\" style=\"color:#6C63FF;margin-right:8px;\"></i>Daftar Cerita</h1>
-        <button id=\"add-story-btn\"><i class=\"fa-solid fa-plus\" style=\"margin-right:6px;\"></i>Tambah Cerita</button>
+        <div class="home-btn-group">
+          <button id="add-story-btn"><i class="fa-solid fa-plus" style="margin-right:6px;"></i>Tambah Cerita</button>
+        </div>
         <div id=\"home-loading\" class=\"loading\" style=\"display:none;text-align:center;margin:32px 0;\">
           <span class=\"loading-spinner\"></span> Memuat data...
         </div>

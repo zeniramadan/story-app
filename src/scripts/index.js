@@ -81,4 +81,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   isSubscribed().then(updateNotifButtons);
+
+  const savedataNavbarBtn = document.getElementById('savedata-navbar-btn');
+  if (savedataNavbarBtn) {
+    savedataNavbarBtn.onclick = () => {
+      window.location.hash = '#/savedata';
+    };
+  }
 });

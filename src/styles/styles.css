@@ -108,16 +108,16 @@ header {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 18px 24px;
+  gap: 10px;
 }
 
 .nav-list li a, .nav-list li button {
-  padding: 10px 18px;
+  padding: 10px;
   display: block;
   color: #fff;
   background: none;
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   border-radius: 6px;
   text-decoration: none;
@@ -643,4 +643,9 @@ h1 {
 #unsubscribe-notif-btn i {
   color: #6C63FF;
   font-size: 1.2em;
+}
+
+.center-btn-container {
+  text-align: center;
+  margin-top: 24px;
 }

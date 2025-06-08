@@ -16,7 +16,7 @@ export default class HomePresenter {
       return;
     }
     this.view.showLoading(true);
-    const data = await this.model.getStories(token, { size: 100 });
+    const data = await this.model.getStories(token, { size: 50});
     this.view.renderStories(data.listStory || []);
     setTimeout(() => {
       this.view.renderMap(data.listStory || []);

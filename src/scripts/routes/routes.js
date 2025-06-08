@@ -15,6 +15,7 @@ import RegisterModel from '../pages/register/register-model';
 import DetailPage from '../pages/detail/detail-page';
 import DetailPresenter from '../pages/detail/detail-presenter';
 import DetailModel from '../pages/detail/detail-model';
+import SavedataPage from '../pages/savedata/savedata.page';
 
 const homePage = new HomePage();
 const homeModel = new HomeModel();
@@ -58,6 +59,10 @@ const routes = {
   '/detail/:id': {
     render: () => detailPage.render(),
     afterRender: () => detailPresenter.afterRender(),
+  },
+  '/savedata': {
+    render: () => SavedataPage.render(),
+    afterRender: () => SavedataPage.afterRender(),
   },
 };
 
