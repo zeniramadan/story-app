@@ -1,6 +1,6 @@
 # App Starter Project with Webpack
 
-Proyek ini adalah setup dasar untuk aplikasi web yang menggunakan webpack untuk proses bundling, Babel untuk transpile JavaScript, serta mendukung proses build dan serving aplikasi.
+Proyek ini adalah setup dasar untuk aplikasi web yang menggunakan webpack untuk proses bundling, Babel untuk transpile JavaScript, serta mendukung proses build dan serving aplikasi. berikut adalah link deployment website [Story App](https://silver-tiramisu-b3470b.netlify.app/)
 
 ## Table of Contents
 
