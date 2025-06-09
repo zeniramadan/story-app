@@ -61,7 +61,7 @@ export default class HomePage {
       if (desc.length > maxDesc) desc = desc.slice(0, maxDesc) + '...';
       return `
       <article class=\"story-card\" data-id=\"${story.id}\">
-        <img src=\"${story.photoUrl}\" alt=\"Foto cerita: ${story.description ? story.description.replace(/\"/g, '') : 'tanpa deskripsi'}\" loading=\"lazy\" />
+        <img src=\"${story.photoUrl}\" alt=\"Foto cerita: ${story.description ? story.description.replace(/\"/g, '') : 'tanpa deskripsi'}\" loading=\"lazy\" onerror=\"this.onerror=null;this.src='images/fallback.png';\" />
         <h2><i class=\"fa-solid fa-user\" style=\"color:#5BC0EB;margin-right:6px;\"></i>${story.name}</h2>
         <p>${desc}</p>
         <p><i class=\"fa-solid fa-location-dot\" style=\"color:#FFD803;margin-right:4px;\"></i>Lat: ${story.lat}, Lng: ${story.lon}</p>

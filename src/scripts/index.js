@@ -90,8 +90,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     alert('Notifikasi dimatikan!');
   });
 
-  isSubscribed().then(updateNotifButtons);
-
   const savedataNavbarBtn = document.getElementById('savedata-navbar-btn');
   if (savedataNavbarBtn) {
     savedataNavbarBtn.onclick = () => {

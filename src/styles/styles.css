@@ -596,15 +596,12 @@ h1 {
   z-index: 1;
 }
 
-/* === Notifikasi Button === */
 #subscribe-notif-btn {
   background: linear-gradient(90deg, #6C63FF 0%, #5BC0EB 100%);
   color: #fff;
-  font-weight: 700;
   border: none;
   border-radius: 6px;
   padding: 10px 18px 10px 16px;
-  font-size: 1rem;
   box-shadow: 0 2px 8px #6C63FF33;
   display: flex;
   align-items: center;
@@ -624,11 +621,9 @@ h1 {
 #unsubscribe-notif-btn {
   background: #EDEDED;
   color: #6C63FF;
-  font-weight: 600;
   border: none;
   border-radius: 6px;
   padding: 10px 18px 10px 16px;
-  font-size: 1rem;
   box-shadow: 0 2px 8px #6C63FF11;
   display: flex;
   align-items: center;

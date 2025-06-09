@@ -18,7 +18,7 @@ export default class DetailPage {
     this._currentStory = story;
     container.innerHTML = `
       <div class=\"story-detail\">
-        <img src=\"${story.photoUrl}\" alt=\"${story.description || 'Foto cerita'}\" style=\"width:100%;max-width:400px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px #5BC0EB22;\" />
+        <img src=\"${story.photoUrl}\" alt=\"${story.description || 'Foto cerita'}\" style=\"width:100%;max-width:400px;object-fit:cover;border-radius:8px;box-shadow:0 2px 8px #5BC0EB22;\" onerror=\"this.onerror=null;this.src='images/fallback.png';\" />
         <h2><i class=\"fa-solid fa-user\" style=\"color:#5BC0EB;margin-right:6px;\"></i>${story.name}</h2>
         <p>${story.description}</p>
         <p><i class=\"fa-solid fa-location-dot\" style=\"color:#FFD803;margin-right:4px;\"></i>Lat: ${story.lat}, Lng: ${story.lon}</p>
